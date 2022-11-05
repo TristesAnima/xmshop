@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/home/controllers/home_controller.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 /// 轮播图
 class BannerList extends GetView<HomeController> {
   const BannerList({Key? key}) : super(key: key);
-
-  final String baseUrl = 'https://xiaomi.itying.com/';
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class BannerList extends GetView<HomeController> {
           () => Swiper(
             itemBuilder: (context, index) {
               return Image.network(
-                '$baseUrl${controller.swiperList[index].pic}',
+                HttpsClient.getAllUri(controller.swiperList[index].pic),
                 fit: BoxFit.cover,
               );
             },

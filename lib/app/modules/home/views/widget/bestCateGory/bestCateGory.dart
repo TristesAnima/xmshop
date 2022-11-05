@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/home/controllers/home_controller.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 /// 首页分类轮播图
 class CateGorySwiper extends GetView<HomeController> {
   const CateGorySwiper({Key? key}) : super(key: key);
-
-  final String baseUrl = 'https://xiaomi.itying.com/';
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,8 @@ class CateGorySwiper extends GetView<HomeController> {
                           width: ScreenAdapter.width(140),
                           height: ScreenAdapter.height(140),
                           child: Image.network(
-                            '$baseUrl${controller.bestCateList[index * 10 + i].pic}',
+                            HttpsClient.getAllUri(
+                                controller.bestCateList[index * 10 + i].pic),
                             fit: BoxFit.fitHeight,
                           ),
                         ),

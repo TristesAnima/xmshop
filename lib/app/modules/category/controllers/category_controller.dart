@@ -1,26 +1,31 @@
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/category/models/tabItems.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 
 class CategoryController extends GetxController {
+  HttpsClient httpsClient = HttpsClient();
+
   RxInt selectIndex = 0.obs;
   RxList<TabItemsResult> sideBarItems = <TabItemsResult>[].obs;
   RxList<TabItemsResult> sideBarItemsData = <TabItemsResult>[].obs;
 
   void getTabItems() async {
-    var response = await Dio().get('https://xiaomi.itying.com/api/pcate');
-    var tabItems = TabItemsModel.fromJson(response.data);
-    sideBarItems.value = tabItems.result;
-    getTabItemsData(sideBarItems[0].id);
-    update();
+    var response = await httpsClient.get('/api/pcate');
+    if (response != null) {
+      var tabItems = TabItemsModel.fromJson(response.data);
+      sideBarItems.value = tabItems.result;
+      getTabItemsData(sideBarItems[0].id);
+      update();
+    }
   }
 
   void getTabItemsData(String id) async {
-    var response = await Dio().get('https://xiaomi.itying.com/api/pcate',
-        queryParameters: {"pid": id});
-    var tabItemsData = TabItemsModel.fromJson(response.data);
-    sideBarItemsData.value = tabItemsData.result;
-    update();
+    var response = await httpsClient.get('/api/pcate', params: {"pid": id});
+    if (response != null) {
+      var tabItemsData = TabItemsModel.fromJson(response.data);
+      sideBarItemsData.value = tabItemsData.result;
+      update();
+    }
   }
 
   void changeIndex(index, id) {

@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/home/controllers/home_controller.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 /// 商品列表
 class GoodList extends GetView<HomeController> {
   const GoodList({Key? key}) : super(key: key);
-
-  final String baseUrl = 'https://xiaomi.itying.com/';
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +62,7 @@ class GoodList extends GetView<HomeController> {
                         Container(
                           padding: EdgeInsets.all(ScreenAdapter.width(5)),
                           child: Image.network(
-                            '$baseUrl${item.pic}',
+                            HttpsClient.getAllUri(item.pic),
                             fit: BoxFit.cover,
                           ),
                         ),

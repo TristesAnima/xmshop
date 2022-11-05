@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/home/controllers/home_controller.dart';
+import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 /// 热销甄选
 class BestSelling extends GetView<HomeController> {
   const BestSelling({Key? key}) : super(key: key);
-
-  final String baseUrl = 'https://xiaomi.itying.com/';
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,8 @@ class BestSelling extends GetView<HomeController> {
                             loop: true,
                             itemBuilder: (context, index) {
                               return Image.network(
-                                '$baseUrl${controller.bestSellingSwiperList[index].pic}',
+                                HttpsClient.getAllUri(controller
+                                    .bestSellingSwiperList[index].pic),
                                 fit: BoxFit.cover,
                               );
                             },
@@ -141,7 +141,7 @@ class BestSelling extends GetView<HomeController> {
                                             padding: EdgeInsets.all(
                                                 ScreenAdapter.height(8)),
                                             child: Image.network(
-                                              '$baseUrl${item.pic}',
+                                              HttpsClient.getAllUri(item.pic),
                                               fit: BoxFit.cover,
                                             ),
                                           ))
