@@ -42,29 +42,33 @@ class HomeAppBar extends GetView<HomeController> {
                         controller.flag.value ? Colors.black87 : Colors.white,
                   )),
             ],
-            title: AnimatedContainer(
-              duration: const Duration(milliseconds: 600),
-              width: controller.flag.value
-                  ? ScreenAdapter.width(800)
-                  : ScreenAdapter.width(620),
-              height: ScreenAdapter.height(96),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
-                  color: const Color.fromARGB(230, 252, 243, 236)),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.fromLTRB(ScreenAdapter.width(34), 0, 4, 0),
-                    child: const Icon(Icons.search),
-                  ),
-                  Text(
-                    "手机",
-                    style: TextStyle(
-                        fontSize: ScreenAdapter.fs(32), color: Colors.black45),
-                  ),
-                ],
+            title: GestureDetector(
+              onTap: () => Get.toNamed('/search'),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 600),
+                width: controller.flag.value
+                    ? ScreenAdapter.width(800)
+                    : ScreenAdapter.width(620),
+                height: ScreenAdapter.height(96),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: const Color.fromARGB(230, 252, 243, 236)),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.fromLTRB(ScreenAdapter.width(34), 0, 4, 0),
+                      child: const Icon(Icons.search, color: Colors.black54),
+                    ),
+                    Text(
+                      "手机",
+                      style: TextStyle(
+                          fontSize: ScreenAdapter.fs(32),
+                          color: Colors.black45),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

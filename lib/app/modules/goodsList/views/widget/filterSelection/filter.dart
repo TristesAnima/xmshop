@@ -13,75 +13,63 @@ class FilterSelection extends GetView<GoodsListController> {
         left: 0,
         right: 0,
         child: Container(
-          width: ScreenAdapter.width(1080),
-          height: ScreenAdapter.height(120),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                  bottom: BorderSide(
-                      width: ScreenAdapter.height(2),
-                      color: const Color.fromRGBO(233, 233, 233, 0.9)))),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: InkWell(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, ScreenAdapter.height(16), 0,
-                        ScreenAdapter.height(16)),
-                    child: Text(
-                      "综合",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.red, fontSize: ScreenAdapter.fs(32)),
-                    ),
-                  ),
-                  onTap: () {},
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: InkWell(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, ScreenAdapter.height(16), 0,
-                        ScreenAdapter.height(16)),
-                    child: Text("销量",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: ScreenAdapter.fs(32))),
-                  ),
-                  onTap: () {},
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: InkWell(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, ScreenAdapter.height(16), 0,
-                        ScreenAdapter.height(16)),
-                    child: Text("价格",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: ScreenAdapter.fs(32))),
-                  ),
-                  onTap: () {},
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: InkWell(
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(0, ScreenAdapter.height(16), 0,
-                        ScreenAdapter.height(16)),
-                    child: Text("筛选",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: ScreenAdapter.fs(32))),
-                  ),
-                  onTap: () {
-                    //注意：新版本中ScaffoldState? 为可空类型 注意判断
-                  },
-                ),
-              ),
-            ],
-          ),
-        ));
+            width: ScreenAdapter.width(1080),
+            height: ScreenAdapter.height(120),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(
+                    bottom: BorderSide(
+                        width: ScreenAdapter.height(2),
+                        color: const Color.fromRGBO(233, 233, 233, 0.9)))),
+            child: Obx(() => Row(
+                  children: controller.subHeaderList.map(
+                    ((item) {
+                      return Expanded(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(
+                                    0,
+                                    ScreenAdapter.height(16),
+                                    0,
+                                    ScreenAdapter.height(16)),
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                      textStyle: TextStyle(
+                                    fontSize: ScreenAdapter.fs(32),
+                                    color: controller.selectHeaderId.value ==
+                                            item['id']
+                                        ? Colors.red
+                                        : Colors.black54,
+                                  )),
+                                  onPressed: () {
+                                    controller.changeSubSelect(item["id"]);
+                                  },
+                                  child: Text(item['title']),
+                                ),
+                              ),
+                              item['id'] == 2 ||
+                                      item['id'] == 3 ||
+                                      controller.subHeaderListSort.value == 1 ||
+                                      controller.subHeaderListSort.value == -1
+                                  ? controller.subHeaderList[item['id'] - 1]
+                                              ['sort'] ==
+                                          1
+                                      ? const Icon(
+                                          Icons.arrow_drop_down,
+                                          color: Colors.black54,
+                                        )
+                                      : const Icon(
+                                          Icons.arrow_drop_up,
+                                          color: Colors.black54,
+                                        )
+                                  : const Text(""),
+                            ],
+                          ));
+                    }),
+                  ).toList(),
+                ))));
   }
 }
