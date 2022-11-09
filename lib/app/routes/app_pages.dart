@@ -26,10 +26,10 @@ class AppPages {
       binding: GoodsListBinding(),
     ),
     GetPage(
-        name: _Paths.SEARCH,
-        page: () => const SearchView(),
-        binding: SearchBinding(),
-        transition: Transition.fadeIn,
-        transitionDuration: const Duration(milliseconds: 100)),
+      name: _Paths.SEARCH,
+      page: () => const SearchView(),
+      binding: SearchBinding(),
+      transition: Transition.downToUp,
+    ),
   ];
 }

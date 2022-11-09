@@ -5,6 +5,7 @@ import 'package:xmshop/app/modules/search/views/widget/guessYouSearch/guessYouSe
 import 'package:xmshop/app/modules/search/views/widget/hotGoods/hotGoods.dart';
 import 'package:xmshop/app/modules/search/views/widget/searchHistory/searchHistory.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
+import 'package:xmshop/app/services/searchService.dart';
 
 import '../controllers/search_controller.dart';
 
@@ -41,11 +42,12 @@ class SearchView extends GetView<SearchController> {
                   controller.keyWords = value;
                 },
                 // 键盘回车事件
-                onSubmitted: (value) {
+                onSubmitted: (value) async {
                   // 替换路由
                   if (value != "") {
-                    Get.offAndToNamed('/goods-list',
-                        arguments: {"keyWords": value});
+                    await SearchServices.setHistoryData(value);
+                    await controller.getHistoryData();
+                    Get.toNamed('/goods-list', arguments: {"keyWords": value});
                   }
                 },
               )),
@@ -56,9 +58,11 @@ class SearchView extends GetView<SearchController> {
                 style: TextStyle(
                     fontSize: ScreenAdapter.fs(36), color: Colors.black54),
               ),
-              onPressed: () {
+              onPressed: () async {
                 if (controller.keyWords != "") {
-                  Get.offAndToNamed('/goods-list',
+                  await SearchServices.setHistoryData(controller.keyWords);
+                  await controller.getHistoryData();
+                  Get.toNamed('/goods-list',
                       arguments: {"keyWords": controller.keyWords});
                 }
               },
@@ -68,16 +72,20 @@ class SearchView extends GetView<SearchController> {
         backgroundColor: const Color.fromRGBO(246, 246, 246, 1),
         body: ListView(
           padding: EdgeInsets.all(ScreenAdapter.height(30)),
-          children: const [
-            SearchHistory(),
-            SizedBox(
+          children: [
+            Obx(() => controller.history.isNotEmpty
+                ? const SearchHistory()
+                : const Text("")),
+            Obx(
+              () => SizedBox(
+                height: controller.history.isNotEmpty ? 20 : 0,
+              ),
+            ),
+            const GuessYouSearch(),
+            const SizedBox(
               height: 20,
             ),
-            GuessYouSearch(),
-            SizedBox(
-              height: 20,
-            ),
-            HotGoods(),
+            const HotGoods(),
           ],
         ));
   }
