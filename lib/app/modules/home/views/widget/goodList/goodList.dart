@@ -51,55 +51,61 @@ class GoodList extends GetView<HomeController> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final item = controller.goodList[index];
-                  return Container(
-                    padding: EdgeInsets.all(ScreenAdapter.width(20)),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(ScreenAdapter.width(5)),
-                          child: Image.network(
-                            HttpsClient.getAllUri(item.pic),
-                            fit: BoxFit.cover,
+                  return InkWell(
+                    onTap: () {
+                      Get.toNamed('/productcontent',
+                          arguments: {"id": item.id});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(ScreenAdapter.width(20)),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(ScreenAdapter.width(5)),
+                            child: Image.network(
+                              HttpsClient.getAllUri(item.pic),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.fromLTRB(
-                              ScreenAdapter.width(10),
-                              ScreenAdapter.width(20),
-                              ScreenAdapter.width(10),
-                              ScreenAdapter.width(10)),
-                          child: Text(
-                            item.title,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(fontSize: ScreenAdapter.fs(36)),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.fromLTRB(
+                                ScreenAdapter.width(10),
+                                ScreenAdapter.width(20),
+                                ScreenAdapter.width(10),
+                                ScreenAdapter.width(10)),
+                            child: Text(
+                              item.title,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: ScreenAdapter.fs(36)),
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(ScreenAdapter.width(5)),
-                          child: Text(
-                            item.subTitle,
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                                fontSize: ScreenAdapter.fs(32),
-                                color: Colors.black54),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(ScreenAdapter.width(5)),
+                            child: Text(
+                              item.subTitle,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: ScreenAdapter.fs(32),
+                                  color: Colors.black54),
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.all(ScreenAdapter.width(5)),
-                          child: Text(
-                            "￥ ${item.price} 元",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(fontSize: ScreenAdapter.fs(32)),
+                          Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.all(ScreenAdapter.width(5)),
+                            child: Text(
+                              "￥ ${item.price} 元",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(fontSize: ScreenAdapter.fs(32)),
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

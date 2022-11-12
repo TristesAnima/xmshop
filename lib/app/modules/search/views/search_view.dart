@@ -47,7 +47,8 @@ class SearchView extends GetView<SearchController> {
                   if (value != "") {
                     await SearchServices.setHistoryData(value);
                     await controller.getHistoryData();
-                    Get.toNamed('/goods-list', arguments: {"keyWords": value});
+                    Get.offAndToNamed('/goods-list',
+                        arguments: {"keyWords": value});
                   }
                 },
               )),
@@ -62,7 +63,7 @@ class SearchView extends GetView<SearchController> {
                 if (controller.keyWords != "") {
                   await SearchServices.setHistoryData(controller.keyWords);
                   await controller.getHistoryData();
-                  Get.toNamed('/goods-list',
+                  Get.offAndToNamed('/goods-list',
                       arguments: {"keyWords": controller.keyWords});
                 }
               },

@@ -33,7 +33,7 @@ class CommonAppBar extends GetView with PreferredSizeWidget {
                 borderRadius: BorderRadius.circular(30),
                 color: const Color.fromRGBO(246, 246, 246, 1)),
             child: InkWell(
-              onTap: () => Get.offAndToNamed('/search'),
+              onTap: () => Get.toNamed('/search'),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
