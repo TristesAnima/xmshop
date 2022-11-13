@@ -22,4 +22,8 @@ class ScreenAdapter {
     // return ScreenUtil().screenHeight;
     return 1.sh;
   }
+
+  static getStatusBarHeight() {
+    return ScreenUtil().statusBarHeight;
+  }
 }

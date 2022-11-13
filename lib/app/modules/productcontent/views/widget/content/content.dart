@@ -7,17 +7,18 @@ import 'package:xmshop/app/modules/productcontent/views/widget/content/goods/goo
 import 'package:xmshop/app/modules/productcontent/views/widget/content/recommand/recommand_view.dart';
 
 class ContentView extends GetView<ProductcontentController> {
-  const ContentView({Key? key}) : super(key: key);
+  final Function subHeader;
+  const ContentView(this.subHeader, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: controller.scrollController,
       child: Column(
-        children: const [
-          ProductGoodsView(),
-          ProductDetailView(),
-          ProductRecommandView()
+        children: [
+          const ProductGoodsView(),
+          ProductDetailView(subHeader),
+          const ProductRecommandView()
         ],
       ),
     );

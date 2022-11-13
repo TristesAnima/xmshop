@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/productcontent/controllers/productcontent_controller.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
 class ProductAppBarView extends GetView<ProductcontentController> {
-  ProductAppBarView({Key? key}) : super(key: key);
+  const ProductAppBarView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,26 @@ class ProductAppBarView extends GetView<ProductcontentController> {
                                   controller.gk2.currentContext as BuildContext,
                                   duration: const Duration(milliseconds: 150),
                                   curve: Curves.ease);
+                              Timer.periodic(const Duration(milliseconds: 151),
+                                  (timer) {
+                                controller.scrollController.jumpTo(controller
+                                        .scrollController.position.pixels -
+                                    ScreenAdapter.height(120));
+                                timer.cancel();
+                              });
                               break;
                             case 3:
                               Scrollable.ensureVisible(
                                   controller.gk3.currentContext as BuildContext,
                                   duration: const Duration(milliseconds: 150),
                                   curve: Curves.ease);
+                              Timer.periodic(const Duration(milliseconds: 151),
+                                  (timer) {
+                                controller.scrollController.jumpTo(controller
+                                        .scrollController.position.pixels -
+                                    ScreenAdapter.height(120));
+                                timer.cancel();
+                              });
                               break;
                           }
                         },
