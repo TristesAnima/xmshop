@@ -8,8 +8,8 @@ import 'package:xmshop/app/services/screenAdapter.dart';
 class ProductGoodsView extends GetView<ProductcontentController> {
   const ProductGoodsView({Key? key}) : super(key: key);
 
-  void showSheet() {
-    Get.bottomSheet(const ProductBottomSheetView());
+  void showSheet(int action) {
+    Get.bottomSheet(ProductBottomSheetView(action));
   }
 
   @override
@@ -94,7 +94,7 @@ class ProductGoodsView extends GetView<ProductcontentController> {
                       padding: EdgeInsets.only(top: ScreenAdapter.height(20)),
                       child: InkWell(
                         onTap: () {
-                          showSheet();
+                          showSheet(1);
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -108,8 +108,8 @@ class ProductGoodsView extends GetView<ProductcontentController> {
                                 Padding(
                                   padding: EdgeInsets.only(
                                       left: ScreenAdapter.height(20)),
-                                  child: const Text(
-                                    "115 黑色",
+                                  child: Text(
+                                    controller.selectedAttr.value,
                                   ),
                                 )
                               ],

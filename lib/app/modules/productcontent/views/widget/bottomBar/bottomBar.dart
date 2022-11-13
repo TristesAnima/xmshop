@@ -7,8 +7,8 @@ import 'package:xmshop/app/services/screenAdapter.dart';
 class BottomBar extends GetView<ProductcontentController> {
   const BottomBar({Key? key}) : super(key: key);
 
-  void showSheet() {
-    Get.bottomSheet(const ProductBottomSheetView());
+  void showSheet(int action) {
+    Get.bottomSheet(ProductBottomSheetView(action));
   }
 
   @override
@@ -30,15 +30,20 @@ class BottomBar extends GetView<ProductcontentController> {
               SizedBox(
                   width: ScreenAdapter.width(200),
                   height: ScreenAdapter.height(160),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.shopping_cart),
-                      Text(
-                        "购物车",
-                        style: TextStyle(fontSize: ScreenAdapter.fs(30)),
-                      )
-                    ],
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed('/cart');
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.shopping_cart),
+                        Text(
+                          "购物车",
+                          style: TextStyle(fontSize: ScreenAdapter.fs(30)),
+                        )
+                      ],
+                    ),
                   )),
               Expanded(
                   flex: 1,
@@ -55,7 +60,7 @@ class BottomBar extends GetView<ProductcontentController> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)))),
                       onPressed: () {
-                        showSheet();
+                        showSheet(2);
                       },
                       child: const Text("加入购物车"),
                     ),
@@ -75,7 +80,7 @@ class BottomBar extends GetView<ProductcontentController> {
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)))),
                       onPressed: () {
-                        showSheet();
+                        showSheet(3);
                       },
                       child: const Text("立即购买"),
                     ),

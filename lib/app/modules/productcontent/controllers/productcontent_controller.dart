@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:xmshop/app/modules/productcontent/models/product_content.dart';
+import 'package:xmshop/app/services/cartService.dart';
 import 'package:xmshop/app/services/httpsClient.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
@@ -33,6 +34,11 @@ class ProductcontentController extends GetxController {
     {"id": 2, "title": "规格参数"},
   ];
   RxInt subHeaderIndex = 1.obs;
+
+  // 保存筛选属性值
+  RxString selectedAttr = ''.obs;
+  // 购买数量
+  RxInt buyNum = 1.obs;
 
   void addScrollEvenLister() {
     // 滑动事件监听 实现TabBar
@@ -100,6 +106,7 @@ class ProductcontentController extends GetxController {
       Pcontent.value = templateData.result!;
       pcontentAttr.value = Pcontent.value.attr!;
       initAttr(Pcontent.value.attr!);
+      getAttr();
       update();
     }
   }
@@ -127,6 +134,44 @@ class ProductcontentController extends GetxController {
       }
     }
     update();
+  }
+
+  void getAttr() {
+    List tempList = [];
+    for (var i = 0; i < pcontentAttr.length; i++) {
+      for (var j = 0; j < pcontentAttr[i].attrList.length; j++) {
+        if (pcontentAttr[i].attrList[j]["checked"]) {
+          tempList.add(pcontentAttr[i].attrList[j]["title"]);
+        }
+      }
+    }
+    selectedAttr.value = tempList.join(",");
+  }
+
+  void add() {
+    buyNum.value++;
+    update();
+  }
+
+  void desc() {
+    if (buyNum.value > 1) {
+      buyNum.value--;
+      update();
+    }
+  }
+
+// 加入购物车
+  void addCart() {
+    getAttr();
+    CartServices.addCart(Pcontent.value, selectedAttr.value, buyNum.value);
+    Get.back();
+    Get.snackbar("提示", "添加购物车成功");
+  }
+
+// 立即购买
+  void buy() {
+    getAttr();
+    Get.back();
   }
 
   @override
