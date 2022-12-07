@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:xmshop/app/services/iconfont.dart';
 import 'package:xmshop/app/services/screenAdapter.dart';
 
-class UserPoster extends GetView {
-  const UserPoster({super.key});
+class UserService extends GetView {
+  const UserService({super.key});
 
   @override
   Widget build(BuildContext context) {

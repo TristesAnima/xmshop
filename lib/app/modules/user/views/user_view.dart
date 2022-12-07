@@ -6,6 +6,7 @@ import 'package:xmshop/app/modules/user/views/widget/bottomPoster.dart';
 import 'package:xmshop/app/modules/user/views/widget/poster.dart';
 import 'package:xmshop/app/modules/user/views/widget/userAvatar.dart';
 import 'package:xmshop/app/modules/user/views/widget/userMoney.dart';
+import 'package:xmshop/app/modules/user/views/widget/userService.dart';
 import 'package:xmshop/app/services/iconfont.dart';
 import '../../../services/screenAdapter.dart';
 
@@ -42,6 +43,7 @@ class UserView extends GetView<UserController> {
           UserMoney(),
           UserPoster(),
           UserBook(),
+          UserService(),
           UserBottomPoster()
         ],
       ),
